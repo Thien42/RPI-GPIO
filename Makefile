@@ -4,8 +4,11 @@ CXXFLAGS=	-I./include
 
 SRCDIR	=	./src
 
-SRC		=	$(SRCDIR)/GPIO.cpp \
-			$(SRCDIR)/main.cpp
+SRC		=	$(SRCDIR)/GPIO.cpp			\
+			$(SRCDIR)/Factory.cpp		\
+			$(SRCDIR)/main.cpp			\
+			$(SRCDIR)/exercise_1.cpp	\
+			$(SRCDIR)/exercise_2.cpp
 
 OBJ		=	$(SRC:.cpp=.o)
 
@@ -17,9 +20,9 @@ $(NAME):	$(OBJ)
 	$(CXX) -o $(NAME) $(OBJ)
 
 clean:
-	$(RM) -f $(OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all

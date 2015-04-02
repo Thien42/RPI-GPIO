@@ -5,6 +5,7 @@
 
 namespace RPI {
 	class GPIO {
+	
 	public:
 		GPIO(std::string const &name);
 		~GPIO();
