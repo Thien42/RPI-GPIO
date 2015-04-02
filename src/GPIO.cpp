@@ -14,6 +14,13 @@ namespace RPI {
 		this->_unexport();
 	}
 
+	bool GPIO::init(void) {
+		if (getuid() != 0) {
+			std::cout << "You do not seem to have root privileges, please run this program as root user" << std::endl;
+			return (false);
+		} else return (true);
+	}
+
 	int GPIO::write_action(const std::string &path, const std::string &value) {
 		std::ofstream export_stream(path.c_str());
 		if (export_stream.is_open()) {
@@ -39,28 +46,23 @@ namespace RPI {
 		}
 	}
 
-	int GPIO::_export() {
-		static const std::string export_str = "/sys/class/gpio/export";
-		return (GPIO::write_action(export_str, this->gpionum));
+	int GPIO::_export() const {
+		return (GPIO::write_action("/sys/class/gpio/export", this->gpionum));
 	}
 
-	int GPIO::_unexport() {
-		static const std::string export_str = "/sys/class/gpio/unexport";
-		return (GPIO::write_action(export_str, this->gpionum));
+	int GPIO::_unexport() const {
+		return (GPIO::write_action("/sys/class/gpio/unexport", this->gpionum));
 	}
 
-	int GPIO::setdir(const std::string &dir) {
-		static const std::string export_str = "/sys/class/gpio/gpio" + this->gpionum + "/direction";
-		return (GPIO::write_action(export_str, dir));
+	int GPIO::setdir(const std::string &dir) const {
+		return (GPIO::write_action("/sys/class/gpio/gpio" + this->gpionum + "/direction", dir));
 	}
 
-	int GPIO::setval(const std::string &value) {
-		static const std::string export_str = "/sys/class/gpio/gpio" + this->gpionum + "/value";
-		return (GPIO::write_action(export_str, value));
+	int GPIO::setval(const std::string &value) const {
+		return (GPIO::write_action("/sys/class/gpio/gpio" + this->gpionum + "/value", value));
 	}
 
-	int GPIO::getval(std::string &val) {
-		static const std::string getval_str = "/sys/class/gpio/gpio" + this->gpionum + "/value";
-		return (GPIO::read_action(getval_str, val));
+	int GPIO::getval(std::string &val) const {
+		return (GPIO::read_action("/sys/class/gpio/gpio" + this->gpionum + "/value", val));
 	}
 }

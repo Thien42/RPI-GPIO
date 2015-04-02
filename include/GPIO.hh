@@ -8,15 +8,16 @@ namespace RPI {
 	public:
 		GPIO(std::string const &name);
 		~GPIO();
-		int setdir(const std::string&);
-		int setval(const std::string&);
-		int getval(std::string&);
+		int setdir(const std::string&) const;
+		int setval(const std::string&) const;
+		int getval(std::string&) const;
+		static bool init(void);
 	private:
-		int _export();
-		int _unexport();
+		int _export() const;
+		int _unexport() const;
 		static int write_action(const std::string&, const std::string&);
 		static int read_action(const std::string&, std::string&);
-		const std::string &gpionum;
+		const std::string gpionum;
 	};
 }
 #endif /* __GPIO_HH_ */
