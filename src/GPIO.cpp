@@ -33,16 +33,17 @@ namespace RPI {
 		}
 	}
 
-	int GPIO::read_action(const std::string &path, std::string &ret) {
+	std::string GPIO::read_action(const std::string &path) {
+		std::string ret;
 		std::ifstream import_stream(path.c_str());
 		if (import_stream.is_open()) {
 			import_stream >> ret;
 			if (ret != "0") ret = "1";
 			import_stream.close();
-			return (0);
+			return (ret);
 		} else {
 			std::cerr << "Unable to read from " << path << std::endl;
-			return (-1);
+			return ("");
 		}
 	}
 
@@ -54,15 +55,23 @@ namespace RPI {
 		return (GPIO::write_action("/sys/class/gpio/unexport", this->gpionum));
 	}
 
-	int GPIO::setdir(const std::string &dir) const {
-		return (GPIO::write_action("/sys/class/gpio/gpio" + this->gpionum + "/direction", dir));
+	int GPIO::setdir(GPIO::DIRECTION dir) const {
+		std::string val;
+		if (dir == GPIO::OUT) val = "out";
+		else val = "in";
+		return (GPIO::write_action("/sys/class/gpio/gpio" + this->gpionum + "/direction", val));
 	}
 
-	int GPIO::setval(const std::string &value) const {
+	int GPIO::setstate(GPIO::STATE state) const {
+		std::string value;
+		if (state == GPIO::CLOSED) value = "0";
+		else value = "1";
 		return (GPIO::write_action("/sys/class/gpio/gpio" + this->gpionum + "/value", value));
 	}
 
-	int GPIO::getval(std::string &val) const {
-		return (GPIO::read_action("/sys/class/gpio/gpio" + this->gpionum + "/value", val));
+	GPIO::STATE GPIO::getstate(void) const {
+		std::string val = GPIO::read_action("/sys/class/gpio/gpio" + this->gpionum + "/value");
+		if (val == "0") return (GPIO::CLOSED);
+		else return (GPIO::OPEN);
 	}
 }
