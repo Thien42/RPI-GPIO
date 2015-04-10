@@ -10,7 +10,9 @@ public:
 	virtual ~exercise_0();
 	virtual void run(void);
 private:
-	RPI::GPIO *button;
+	RPI::GPIO *button1;
+	RPI::GPIO *button2;
+	RPI::GPIO *button3;
 };
 
 #endif /* __EXERCICE_1_HH_ */
