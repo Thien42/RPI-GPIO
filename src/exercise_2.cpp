@@ -4,15 +4,15 @@
 
 exercise_2::exercise_2() : Test::Exercise() {
 	/* LEDS initialization */
-	this->led1 = new RPI::GPIO("4");
+	this->led1 = new RPI::GPIO(4);
 	this->led1->setdir(RPI::GPIO::OUT);
-	this->led2 = new RPI::GPIO("14");
+	this->led2 = new RPI::GPIO(14);
 	this->led2->setdir(RPI::GPIO::OUT);
-	this->led3 = new RPI::GPIO("18");
+	this->led3 = new RPI::GPIO(18);
 	this->led3->setdir(RPI::GPIO::OUT);
 
 	/* Buttons initialization */
-	this->button = new RPI::GPIO("17");
+	this->button = new RPI::GPIO(17);
 	this->button->setdir(RPI::GPIO::IN);
 }
 

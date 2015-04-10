@@ -6,7 +6,7 @@
 
 Test::Exercise *ex;
 
-void sig_handler(int sig)
+void sig_handler(int)
 {
 	std::cout << "Ctrl^C pressed in sig handler" << std::endl;
 	delete ex;

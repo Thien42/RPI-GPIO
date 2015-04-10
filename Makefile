@@ -1,12 +1,15 @@
 CXX		=	g++
 
-CXXFLAGS=	-I./include
+CXXFLAGS=	-I./include -W -Wall -Wextra
+
+LDFLAGS	=	-lwiringPi
 
 SRCDIR	=	./src
 
 SRC		=	$(SRCDIR)/GPIO.cpp			\
 			$(SRCDIR)/Factory.cpp		\
 			$(SRCDIR)/main.cpp			\
+			$(SRCDIR)/exercise_0.cpp	\
 			$(SRCDIR)/exercise_1.cpp	\
 			$(SRCDIR)/exercise_2.cpp
 
@@ -17,7 +20,7 @@ NAME	=	rpi-gpio
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	$(CXX) -o $(NAME) $(OBJ)
+	$(CXX) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 clean:
 	$(RM) $(OBJ)

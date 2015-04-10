@@ -14,18 +14,14 @@ namespace RPI {
 			CLOSED = 0,
 			OPEN = 1
 		};
-		GPIO(std::string const &name);
+		GPIO(int);
 		~GPIO();
-		int setdir(GPIO::DIRECTION) const;
-		int setstate(GPIO::STATE) const;
+		void setdir(GPIO::DIRECTION) const;
+		void setstate(GPIO::STATE) const;
 		GPIO::STATE getstate(void) const;
 		static bool init(void);
 	private:
-		int _export() const;
-		int _unexport() const;
-		static int write_action(const std::string&, const std::string&);
-		static std::string read_action(const std::string&);
-		const std::string gpionum;
+		const int gpionum;
 	};
 }
 #endif /* __GPIO_HH_ */
